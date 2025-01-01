@@ -1,0 +1,6 @@
+@import './iconfont.css';
+
+:root {
+    --header-height: 4rem;
+    --primary-color: 76, 155, 255;
+}
