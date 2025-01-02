@@ -5,3 +5,17 @@
     --primary-color: 76, 155, 255;
     --minor-color: 0, 96, 217;
 }
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background: rgba(31, 31, 31, 0.5);
+}

@@ -1,16 +1,10 @@
 <template>
   <div class="official">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
-      <div class="gradient-sphere
-          bg-gradient-to-r
-          from-[rgba(125,239,243,1)]
-          to-[rgba(125,239,243,0.8)]
-          right-1 top-[-2.5rem] md:right-40"/>
-      <div class="gradient-sphere
-          bg-gradient-to-r
-          from-[rgba(0,151,228,1)]
-          to-[rgba(0,151,228,0.8)]
-          left-1 top-36 md:left-40"/>
+      <div class="gradient-sphere bg-gradient-to-r from-[rgba(125,239,243,1)]
+      to-[rgba(125,239,243,0.8)] right-1 top-[-2.5rem] md:right-40"/>
+      <div class="gradient-sphere bg-gradient-to-r from-[rgba(0,151,228,1)]
+          to-[rgba(0,151,228,0.8)] left-1 top-36 md:left-40"/>
       <div class="official-content">
         <div class="content__title">
           <div class="content__title__h1 lg:text-5xl text-3xl">
@@ -28,7 +22,7 @@
             <gradient-text direction="left">轻量级聊天室</gradient-text>
             系统。
           </div>
-          <gradient-button class="mt-[30px]"><i class="iconfont icon-fasong mr-[5px]" style="font-size: 20px;"/>立即体验
+          <gradient-button class="mt-[50px]"><i class="iconfont icon-fasong mr-[5px]" style="font-size: 20px;"/>立即体验
           </gradient-button>
         </div>
         <div class="content__card-area">
@@ -42,12 +36,46 @@
             </div>
           </div>
         </div>
+        <div class="content__version">
+          <div class="content__version__h1 lg:text-5xl text-3xl">
+            多版本选择，满足
+            <gradient-text direction="left">多样化</gradient-text>
+            需求
+          </div>
+          <div v-for="(version,index) in versionCardData" class="content__version__card md:max-h-[500px]"
+               :class="{right:index%2==1}">
+            <div
+                class="gradient-sphere top-[-100px]"
+                :class="`${index%2==0?'right-1 lg:right-[-100px]':'left-1 lg:left-[-100px]'}`"
+                :style="{background: `linear-gradient(to right, rgba(${version.color}, 0.8), rgba(${version.color}, 0.7))`}"
+            />
+            <div class="version__card__content justify-center flex-col "
+                 :class="`${index%2==0?'md:flex-row': 'md:flex-row-reverse'}`">
+              <div class="card__content__tech items-center">
+                <div class="tech__title">
+                  <shadow-text>{{ version.title.highlight }}</shadow-text>
+                  {{ version.title.content }}
+                </div>
+                <div v-for="tech in version.tech" class="flex items-center mt-[15px]">
+                  <img :src="tech.icon" class="w-[26px] h-[26px] mr-[5px]" alt="" draggable="false"/>
+                  <div class="text-[#4B5963]"> {{ tech.content }}</div>
+                </div>
+                <border-gradient-button class="mt-[30px] w-full">Github</border-gradient-button>
+              </div>
+              <div class="card__content__img">
+                <img :src="version.img" alt="" draggable="false">
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+useHead({title: "Linyu：一款支持多端的及时通讯系统"})
+
 const cardAreaData = [
   {
     icon: "icon-anquan",
@@ -65,20 +93,48 @@ const cardAreaData = [
     content: "完全开源的架构设计，支持自由定制与二次开发。轻松实现功能扩展与系统集成，打造个性化 IM 解决方案。"
   }
 ]
+
+const versionCardData = [
+  {
+    color: '178, 131, 255',
+    title: {highlight: "Mini版,", content: "技术选型"},
+    tech: [
+      {icon: "/vue.svg", content: "Vue3"},
+      {icon: "/vite.svg", content: "Vite6"},
+      {icon: "/rtc.svg", content: "WebRtc"},
+      {icon: "/ws.svg", content: "WebSocket"},
+      {icon: "/springboot.svg", content: "SpringBoot"},
+    ],
+    img: "/mini.png"
+  },
+  {
+    color: '184, 255, 195',
+    title: {highlight: "桌面端,", content: "技术选型"},
+    tech: [
+      {icon: "/tauri.svg", content: "Tauri"},
+      {icon: "/react.svg", content: "React"},
+      {icon: "/rtc.svg", content: "WebRtc"},
+      {icon: "/ws.svg", content: "WebSocket"},
+    ],
+    img: "/desktop.png"
+  },
+  {
+    color: '255, 175, 215',
+    title: {highlight: "移动端,", content: "技术选型"},
+    tech: [
+      {icon: "/getx.svg", content: "Getx"},
+      {icon: "/flutter.svg", content: "Flutter"},
+      {icon: "/rtc.svg", content: "WebRtc"},
+      {icon: "/ws.svg", content: "WebSocket"}
+    ],
+    img: "/mobile.png"
+  }
+]
 </script>
 
 <style lang="scss" scoped>
-.gradient-sphere {
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  border-radius: 200px;
-  filter: blur(64px);
-  opacity: 0.3;
-  z-index: 1;
-}
-
 .official {
+
   .official-content {
     display: flex;
     flex-direction: column;
@@ -132,6 +188,90 @@ const cardAreaData = [
         }
       }
     }
+
+    .content__version {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 50px;
+
+      .content__version__h1 {
+        font-weight: 600;
+        margin: 60px 0;
+      }
+
+      .content__version__card {
+        background: linear-gradient(to left, #F4F8FB, #F5F7FA);
+        border-radius: 10px;
+        border: #D6D6D6 1px solid;
+        position: relative;
+        padding: 40px;
+        display: flex;
+        width: 85%;
+        margin-bottom: 50px;
+        align-items: center;
+        justify-content: center;
+
+        .version__card__content {
+          display: flex;
+          align-items: center;
+          gap: 50px;
+
+          .card__content__tech {
+            display: flex;
+            flex-direction: column;
+            min-width: 200px;
+            flex-shrink: 0;
+
+            .tech__title {
+              font-size: 24px;
+              font-weight: 600;
+              margin-bottom: 10px;
+            }
+
+            .tech__item {
+            }
+          }
+
+          .card__content__img {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            padding: 10px;
+            border-radius: 10px;
+
+            img {
+              max-height: 440px;
+              object-fit: contain;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+          }
+        }
+      }
+    }
+
+  }
+}
+
+.gradient-sphere {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 200px;
+  filter: blur(64px);
+  opacity: 0.1;
+  z-index: 1;
+  animation: gradient-sphere-animate 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes gradient-sphere-animate {
+  50% {
+    opacity: 0.2;
   }
 }
 
