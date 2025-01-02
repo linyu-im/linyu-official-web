@@ -3,9 +3,11 @@
   <main class="main-content">
     <slot/>
   </main>
+  <Bottom/>
 </template>
 <script setup lang="ts">
 import Header from "~/layouts/header.vue";
+import Bottom from "~/layouts/bottom.vue";
 </script>
 <style lang="scss" scoped>
 .main-content {

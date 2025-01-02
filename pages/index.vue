@@ -8,8 +8,10 @@
       <div class="official-content">
         <div class="content__title">
           <div class="content__title__h1 lg:text-5xl text-3xl">
-            <gradient-text>Linyu，</gradient-text>
-            <span>您的IM系统！</span>
+            <text-print>
+              <gradient-text>Linyu，</gradient-text>
+              <span>您的IM系统！</span>
+            </text-print>
           </div>
           <div class="content__title__h2 lg:text-[20px] text-[16px] lg:mb-[5px] mb-[10px]">
             林语（Linyu）是一款支持多端的
@@ -264,14 +266,14 @@ const versionCardData = [
   height: 200px;
   border-radius: 200px;
   filter: blur(64px);
-  opacity: 0.1;
+  opacity: 0.05;
   z-index: 1;
   animation: gradient-sphere-animate 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 @keyframes gradient-sphere-animate {
   50% {
-    opacity: 0.2;
+    opacity: 0.25;
   }
 }
 

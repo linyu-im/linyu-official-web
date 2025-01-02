@@ -9,13 +9,15 @@
       </div>
       <nav class="hidden md:flex space-x-2">
         <div class="link-tag">
-          <i class="iconfont icon-github mr-1 leading-[1.3]" style="font-size: 1.3rem"/>
-          <div>1000</div>
+          <img
+              src="https://img.shields.io/github/stars/DWHengr/linyu-client?style=social"
+              alt="GitHub Stars"
+          />
         </div>
-        <div class="link-tag">
-          <i class="iconfont icon-gitee mr-1 leading-[1.3] text-[#c71d23]" style="font-size: 1.3rem"/>
-          <div>1000</div>
-        </div>
+        <!--        <div class="link-tag">-->
+        <!--          <i class="iconfont icon-gitee mr-1 leading-[1.3] text-[#c71d23]" style="font-size: 1.3rem"/>-->
+        <!--          <div>1000</div>-->
+        <!--        </div>-->
       </nav>
       <button @click="isMenuOpen=!isMenuOpen" class="md:hidden text-xl">
         ☰
@@ -44,7 +46,7 @@ const isMenuOpen = ref(false)
   box-shadow: 0 2px 60px rgba(var(--primary-color), 0.5);
 
   .link-tag {
-    padding: 2px 10px;
+    padding: 5px 10px;
     background-color: #EAEAEA;
     border-radius: 10px;
     display: flex;
