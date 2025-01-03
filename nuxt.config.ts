@@ -2,8 +2,15 @@
 import {resolve} from "path";
 
 export default defineNuxtConfig({
-    compatibilityDate: '2024-11-01',
+    compatibilityDate: '2025-01-03',
     devtools: {enabled: false},
-    modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt'],
+    modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@nuxt/content'],
     css: [resolve(__dirname, './assets/nuxt.css')],
+    extends: '@nuxt-themes/docus',
+    content: {
+        documentDriven: {
+            injectPage: false
+        },
+    }
+
 })

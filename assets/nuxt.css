@@ -1,4 +1,5 @@
 @import './iconfont.css';
+@import './prose.scss';
 
 :root {
     --header-height: 4rem;

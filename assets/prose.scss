@@ -1,0 +1,42 @@
+
+pre {
+  background-color: rgb(var(--primary-color), 0.05);
+}
+
+.tabs-header .tabs {
+  background-color: rgb(var(--primary-color), 0.1);
+  padding: 10px 0;
+  height: 50px;
+
+  .highlight-underline {
+    display: none;
+  }
+
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.active {
+      background-color: rgb(var(--primary-color), 0.8);
+      border-radius: 5px;
+      color: #FFF !important;
+    }
+
+    &.not-active {
+      border-radius: 5px;
+
+      &:hover {
+        background-color: rgba(var(--primary-color), 0.2) !important;
+      }
+    }
+  }
+}
+
+a, p {
+  code {
+    background-color: rgb(var(--primary-color), 0.1) !important;
+    border-color: rgb(var(--primary-color), 1) !important;
+  }
+}
+
