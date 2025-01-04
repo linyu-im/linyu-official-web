@@ -35,8 +35,26 @@ pre {
 
 a, p {
   code {
-    background-color: rgb(var(--primary-color), 0.1) !important;
-    border-color: rgb(var(--primary-color), 1) !important;
+    background-color: rgba(var(--primary-color), 0.1) !important;
+    border-color: rgb(var(--primary-color)) !important;
+    color: rgba(var(--primary-color)) !important;
+    font-weight: bold !important;
+  }
+}
+
+p {
+  a {
+    color: rgba(var(--primary-color)) !important;
+    font-weight: bold !important;
+    padding: 0 5px;
+  }
+}
+
+.alert {
+  &.info {
+    .alert-content {
+      color: rgba(var(--primary-color)) !important;
+    }
   }
 }
 

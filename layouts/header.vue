@@ -3,39 +3,81 @@
       class="lg:mb-0 lg:border-0 header">
     <div
         class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl sticky flex items-center justify-between gap-3 h-[--header-height]">
-      <div class="text-2xl font-bold flex justify-center items-center select-none">
-        <img src="/logo.png" alt="" class="w-12 h-12 m-2 lg:w-14 lg:h-14 cursor-pointer" draggable="false">
-        <div class="text-[#003374] font-bold text-[20px] lg:text-[24px] hidden md:flex">Linyu</div>
-      </div>
-      <nav class="hidden md:flex space-x-2">
-        <div class="link-tag">
+      <NuxtLink to="/">
+        <div class="text-2xl font-bold flex justify-center items-center select-none cursor-pointer">
+          <img src="/logo.png" alt="" class="w-12 h-12 m-2 lg:w-14 lg:h-14" draggable="false">
+          <div class="text-[#003374] font-bold text-[18px] md:text-[20px] lg:text-[24px]">Linyu</div>
+        </div>
+      </NuxtLink>
+      <nav class="hidden md:flex space-x-2 justify-center items-center">
+        <div class="link-operation">
+          <div class="operation__item" @click="handlerToLink('/docs/mini/install')">文档</div>
+          <div class="operation__item" @click="showToast('敬请期待~')">关于</div>
+          <div class="operation__item" @click="showToast('敬请期待~')">服务</div>
+          <div class="operation__item" @click="showToast('敬请期待~')">赞助</div>
+        </div>
+        <div class="link-tag" @click="openUrl('https://github.com/DWHengr/linyu-client')">
           <img
               src="https://img.shields.io/github/stars/DWHengr/linyu-client?style=social"
               alt="GitHub Stars"
           />
         </div>
-        <!--        <div class="link-tag">-->
-        <!--          <i class="iconfont icon-gitee mr-1 leading-[1.3] text-[#c71d23]" style="font-size: 1.3rem"/>-->
-        <!--          <div>1000</div>-->
-        <!--        </div>-->
       </nav>
-      <button @click="isMenuOpen=!isMenuOpen" class="md:hidden text-xl">
-        ☰
+      <button v-if="!isMenuOpen" @click="isMenuOpen=true" class="md:hidden text-xl m-2">
+        <i class="iconfont icon-caidan" style="font-size: 20px"/>
+      </button>
+      <button v-if="isMenuOpen" @click="isMenuOpen=false" class="md:hidden text-xl m-2">
+        <i class="iconfont icon-guanbi" style="font-size: 20px"/>
       </button>
     </div>
-    <div v-if="isMenuOpen">
-    </div>
   </header>
+  <div v-if="isMenuOpen" class="floating-menu">
+    <div class="floating-menu__operation">
+      <div class="operation__item" @click="handlerToLink('/docs/mini/install')">文档</div>
+      <div class="operation__item" @click="showToast('敬请期待~')">关于</div>
+      <div class="operation__item" @click="showToast('敬请期待~')">服务</div>
+      <div class="operation__item" @click="showToast('敬请期待~')">赞助</div>
+    </div>
+    <div class="mt-[20px] cursor-pointer" @click="openUrl('https://github.com/DWHengr/linyu-client')">
+      <img
+          src="https://img.shields.io/github/stars/DWHengr/linyu-client?style=social"
+          alt="GitHub Stars"
+      />
+    </div>
+  </div>
 </template>
 
 <script setup>
 const isMenuOpen = ref(false)
+
+import {useToast} from "~/components/ToastProvider.vue";
+
+const showToast = useToast()
+
+const handleResize = () => {
+  isMenuOpen.value = false;
+};
+
+onMounted(() => {
+  handleResize();
+  window.addEventListener("resize", handleResize);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", handleResize);
+});
+
+const handlerToLink = (path) => {
+  isMenuOpen.value = false;
+  useRouter().push(path);
+}
+
 </script>
 
 <style scoped>
 .header {
-  background-color: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(10px);
+  background-color: rgba(249, 251, 255, 0.8);
+  backdrop-filter: blur(15px);
   position: sticky;
   top: 0;
   z-index: 50;
@@ -45,9 +87,35 @@ const isMenuOpen = ref(false)
   background-size: 100% 2px;
   box-shadow: 0 2px 60px rgba(var(--primary-color), 0.5);
 
+  .link-operation {
+    display: flex;
+    height: 40px;
+    justify-items: center;
+    align-items: center;
+    padding: 0 10px;
+    background-color: #FFF;
+    border-radius: 10px;
+    border: #EDF2F9 2px solid;
+    gap: 5px;
+
+    .operation__item {
+      font-size: 14px;
+      user-select: none;
+      padding: 2px 10px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #f2f6ff;
+        border-radius: 5px;
+      }
+    }
+  }
+
   .link-tag {
-    padding: 5px 10px;
-    background-color: #EAEAEA;
+    height: 40px;
+    padding: 0 10px;
+    background-color: #FFF;
+    border: #EDF2F9 2px solid;
     border-radius: 10px;
     display: flex;
     justify-content: center;
@@ -56,6 +124,37 @@ const isMenuOpen = ref(false)
     font-weight: 600;
     user-select: none;
     cursor: pointer;
+  }
+}
+
+.floating-menu {
+  position: fixed;
+  top: var(--header-height);
+  height: 100%;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px 20px;
+  display: flex;
+  flex-direction: column;
+  z-index: 999;
+
+  .floating-menu__operation {
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+
+    .operation__item {
+      padding: 5px 10px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #f2f6ff;
+        border-radius: 5px;
+      }
+    }
   }
 }
 </style>

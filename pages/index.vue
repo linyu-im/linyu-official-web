@@ -24,7 +24,9 @@
             <gradient-text direction="left">轻量级聊天室</gradient-text>
             系统。
           </div>
-          <gradient-button class="mt-[50px]"><i class="iconfont icon-fasong mr-[5px]" style="font-size: 20px;"/>立即体验
+          <gradient-button class="mt-[50px]" @click="openUrl('https://mini.linyu.chat/login?p=sun55@kong')">
+            <i class="iconfont icon-fasong mr-[5px]" style="font-size: 20px;"/>
+            立即体验
           </gradient-button>
         </div>
         <div class="content__card-area">
@@ -62,7 +64,9 @@
                   <img :src="tech.icon" class="w-[26px] h-[26px] mr-[5px]" alt="" draggable="false"/>
                   <div class="text-[#4B5963]"> {{ tech.content }}</div>
                 </div>
-                <border-gradient-button class="mt-[30px] w-full">Github</border-gradient-button>
+                <border-gradient-button @click="openUrl(version.link)" class="mt-[30px] w-full">
+                  Github
+                </border-gradient-button>
               </div>
               <div class="card__content__img">
                 <img :src="version.img" alt="" draggable="false">
@@ -76,13 +80,15 @@
 </template>
 
 <script setup lang="ts">
+import {openUrl} from "~/utils/common";
+
 useHead({title: "Linyu：一款支持多端的及时通讯系统"})
 
 const cardAreaData = [
   {
     icon: "icon-anquan",
     title: "数据安全",
-    content: "采用端到端加密和 HTTPS 协议，全面保障用户隐私和数据安全。支持消息加密存储与传输，防止信息泄露或篡改。"
+    content: "支持 HTTPS 协议，全面保障用户隐私和数据安全。支持消息加密存储与传输，防止信息泄露或篡改。"
   },
   {
     icon: "icon-duoyanghua",
@@ -107,7 +113,8 @@ const versionCardData = [
       {icon: "/ws.svg", content: "WebSocket"},
       {icon: "/springboot.svg", content: "SpringBoot"},
     ],
-    img: "/mini.png"
+    img: "/mini.png",
+    link: "https://github.com/linyu-im/linyu-mini-web",
   },
   {
     color: '184, 255, 195',
@@ -118,7 +125,8 @@ const versionCardData = [
       {icon: "/rtc.svg", content: "WebRtc"},
       {icon: "/ws.svg", content: "WebSocket"},
     ],
-    img: "/desktop.png"
+    img: "/desktop.png",
+    link: "https://github.com/DWHengr/linyu-client"
   },
   {
     color: '255, 175, 215',
@@ -129,7 +137,8 @@ const versionCardData = [
       {icon: "/rtc.svg", content: "WebRtc"},
       {icon: "/ws.svg", content: "WebSocket"}
     ],
-    img: "/mobile.png"
+    img: "/mobile.png",
+    link: "https://github.com/DWHengr/linyu_mobile"
   }
 ]
 </script>
@@ -170,7 +179,7 @@ const versionCardData = [
         border-radius: 5px;
         display: flex;
         flex-direction: column;
-        padding: 10px;
+        padding: 10px 20px;
         cursor: pointer;
 
         &:hover {
