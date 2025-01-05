@@ -1,6 +1,6 @@
 <template>
   <!-- 小窗口下，菜单列表 -->
-  <div class="sm-menu-operation flex md:hidden">
+  <div class="sm-menu-operation flex lg:hidden">
     <div class="text-[rgba(60,60,60,0.7)] text-[14px] cursor-pointer" @click="isSmMenuShow=true">
       <i class="iconfont icon-liebiao" style="font-size: 14px"/>
       菜单
@@ -12,8 +12,8 @@
   <div class="flex relative flex-col md:flex-row">
     <div class="h-[40px] md:hidden"></div>
     <div
-        class="md:sticky md:top-16 h-auto md:h-[calc(100vh-var(--header-height))] md:w-44 md:ml-48 w-full border-b
-        md:border-b-0 md:border-r border-gray-200 overflow-y-auto hidden md:flex"
+        class="lg:sticky lg:top-16 h-auto lg:h-[calc(100vh-var(--header-height))] lg:w-44 lg:ml-48 w-full border-b
+        lg:border-b-0 lg:border-r border-gray-200 overflow-y-auto hidden lg:flex"
         :class="{'sm-menu-list':isSmMenuShow}"
     >
       <div class="p-4 space-y-1">
@@ -24,9 +24,9 @@
               <li
                   v-for="file in folder.files" :key="file._path"
                   class="mb-[5px] text-[rgba(60,60,60,0.7)]"
-                  :class="{ 'list-active': `/docs${file._path}` === currentPath }"
+                  :class="{ 'list-active': file._path === path }"
               >
-                <NuxtLink :to="`/docs${file._path}`">{{ file.title }}</NuxtLink>
+                <NuxtLink :to="file._path">{{ file.title }}</NuxtLink>
               </li>
             </ul>
           </li>
@@ -35,54 +35,52 @@
     </div>
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div class="max-w-3xl mx-auto lg:mx-24 px-4 sm:px-6 lg:px-8">
-        <ClientOnly>
-          <ContentRenderer :value="blog">
-            <template #empty>
-              <p>没有找到任何内容。</p>
-            </template>
-          </ContentRenderer>
-        </ClientOnly>
+        <ContentRenderer v-if="articles" :value="articles">
+          <template #empty>
+            <p>No content found.</p>
+          </template>
+        </ContentRenderer>
       </div>
     </div>
   </div>
 </template>
+
 <script setup>
+
 const folderDisplayNames = {
   mini: "迷你版",
 }
-
 const isSmMenuShow = ref(false)
 
-// 获取当前页面的路径
-const currentPath = useRoute().path;
+const {path} = useRoute()
+const {data: articles, error} = await useAsyncData(`docs-post-${path}`, () =>
+    queryContent(path).findOne(),
+)
 
-const slug = useRoute().params.slug.toString().replace(/,/g, "/");
-
-const {data: blog} = await useAsyncData(slug, () => {
-  return queryContent(slug).findOne();
-});
-
-if (blog.value?.title) {
-  useHead({title: `${blog.value.title} | Linyu`})
-} else {
-  useHead({title: "未知地址 | Linyu"})
-}
+if (error.value) navigateTo('/')
 
 const {data: menu} = await useAsyncData(async () => {
-  const allContent = await queryContent().only(['_path', '_dir', 'title']).find()
-  const groupedContent = Object.entries(
-      allContent.reduce((acc, item) => {
-        const folderName = item._dir.split('/')[0]
-        acc[folderName] = acc[folderName] || {name: folderName, files: []}
-        acc[folderName].files.push(item)
-        return acc
-      }, {})
-  )
-  return groupedContent.map(([folderName, folderData]) => ({
-    ...folderData,
-    displayName: folderDisplayNames[folderName] || folderName,
-  }))
-})
+  const allContent = await queryContent().only(['_path', '_dir', 'title', 'isNoShow']).find();
+  const groupedContent = [];
+  const folderMap = {};
+  for (const item of allContent) {
+    if (item.isNoShow) continue
+    const folderName = item._dir.split('/')[0];
+    if (!folderMap[folderName]) {
+      folderMap[folderName] = {name: folderName, files: []};
+    }
+    folderMap[folderName].files.push(item);
+  }
+  for (const folderName in folderMap) {
+    if (Object.hasOwn(folderMap, folderName)) {
+      groupedContent.push({
+        ...folderMap[folderName],
+        displayName: folderDisplayNames[folderName] || folderName,
+      });
+    }
+  }
+  return groupedContent;
+});
 
 const handleResize = () => {
   isSmMenuShow.value = false;
@@ -97,7 +95,9 @@ onUnmounted(() => {
   window.removeEventListener("resize", handleResize);
 });
 
+
 </script>
+
 <style scoped>
 .sm-menu-operation {
   height: 40px;
@@ -136,3 +136,4 @@ onUnmounted(() => {
   z-index: 10;
 }
 </style>
+

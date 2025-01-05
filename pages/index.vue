@@ -80,6 +80,9 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  documentDriven: true
+})
 import {openUrl} from "~/utils/common";
 
 useHead({title: "Linyu：一款支持多端的及时通讯系统"})
