@@ -9,14 +9,15 @@
   <!-- 遮罩层 -->
   <div class="mask" v-if="isSmMenuShow" @click="isSmMenuShow=false"></div>
 
-  <div class="flex relative flex-col md:flex-row">
-    <div class="h-[40px] md:hidden"></div>
+  <div class="flex relative flex-col lg:flex-row">
+    <div class="h-[40px] lg:hidden"></div>
     <div
-        class="lg:sticky lg:top-16 h-auto lg:h-[calc(100vh-var(--header-height))] lg:w-44 lg:ml-48 w-full border-b
+        class="lg:sticky lg:top-16 h-auto lg:h-[calc(100vh-var(--header-height))]
+        lg:w-[400px] relative w-full border-b
         lg:border-b-0 lg:border-r border-gray-200 overflow-y-auto hidden lg:flex"
         :class="{'sm-menu-list':isSmMenuShow}"
     >
-      <div class="p-4 space-y-1">
+      <div class="p-4 space-y-1 absolute right-0">
         <ul class="select-none">
           <li v-for="folder in menu" :key="folder.name">
             <span class="font-bold">{{ folder.displayName }}</span>
@@ -34,12 +35,14 @@
       </div>
     </div>
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div class="max-w-3xl mx-auto lg:mx-24 px-4 sm:px-6 lg:px-8">
-        <ContentRenderer v-if="articles" :value="articles">
-          <template #empty>
-            <p>No content found.</p>
-          </template>
-        </ContentRenderer>
+      <div class="max-w-3xl mx-auto lg:mx-24 px-4 sm:px-6 lg:px-8 lg:w-[705px]">
+        <client-only>
+          <ContentRenderer v-if="articles" :value="articles">
+            <template #empty>
+              <p>No content found.</p>
+            </template>
+          </ContentRenderer>
+        </client-only>
       </div>
     </div>
   </div>
@@ -59,7 +62,7 @@ const {data: articles, error} = await useAsyncData(`docs-post-${path}`, () =>
 
 if (error.value) navigateTo('/')
 
-const {data: menu} = await useAsyncData(async () => {
+const {data: menu} = await useAsyncData('menu', async () => {
   const allContent = await queryContent().only(['_path', '_dir', 'title', 'isNoShow']).find();
   const groupedContent = [];
   const folderMap = {};
@@ -124,6 +127,7 @@ onUnmounted(() => {
 
 .list-active {
   color: rgb(var(--primary-color));
+  font-weight: bold;
 }
 
 .mask {

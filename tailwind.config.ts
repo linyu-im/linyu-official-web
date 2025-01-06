@@ -1,5 +1,3 @@
-import plugin from 'tailwindcss/plugin'
-
 export default {
     theme: {
         extend: {
