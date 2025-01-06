@@ -1,0 +1,22 @@
+.light {
+  --header-height: 4rem;
+  --primary-color: 76, 155, 255;
+  --minor-color: 0, 96, 217;
+  --bg-color: 255, 255, 255;
+  --text-color: 31, 31, 31;
+  --button-hover-color: #f2f6ff;
+}
+
+.dark {
+  --header-height: 4rem;
+  --primary-color: 76, 155, 255;
+  --minor-color: 0, 96, 217;
+  --bg-color: 15, 23, 42;
+  --text-color: 255, 255, 255;
+  --button-hover-color: rgba(134, 134, 134, 0.5);
+
+  body {
+    background-color: #000217;
+    color: #FFF;
+  }
+}

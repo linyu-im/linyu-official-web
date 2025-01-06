@@ -8,7 +8,7 @@
 .shadow-text {
   position: relative;
   display: inline-block;
-  color: #000;
+  color: rgba(var(--text-color));
   text-align: center;
   z-index: 1;
   margin: 0 5px;

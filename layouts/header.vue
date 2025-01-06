@@ -6,29 +6,34 @@
       <NuxtLink to="/">
         <div class="text-2xl font-bold flex justify-center items-center select-none cursor-pointer">
           <img src="/logo.png" alt="" class="w-12 h-12 m-2 lg:w-14 lg:h-14" draggable="false">
-          <div class="text-[#003374] font-bold text-[18px] md:text-[20px] lg:text-[24px]">Linyu</div>
+          <div class="text-[#003374] dark:text-[#fff] font-bold text-[18px] md:text-[20px] lg:text-[24px]">Linyu</div>
         </div>
       </NuxtLink>
       <nav class="hidden md:flex space-x-2 justify-center items-center">
         <div class="link-operation">
-          <div class="operation__item" @click="handlerToLink('/docs/mini/install')">文档</div>
+          <div class="operation__item" @click="handlerToLink('/docs/mini/install')">
+            文档
+          </div>
           <div class="operation__item" @click="showToast('敬请期待~')">关于</div>
           <div class="operation__item" @click="showToast('敬请期待~')">服务</div>
           <div class="operation__item" @click="showToast('敬请期待~')">赞助</div>
         </div>
-        <div class="link-tag" @click="openUrl('https://github.com/DWHengr/linyu-client')">
+        <div class="link-tag">
+          <color-mode-switch class="mr-[10px]"/>
           <img
+              @click="openUrl('https://github.com/DWHengr/linyu-client')"
               src="https://img.shields.io/github/stars/DWHengr/linyu-client?style=social"
               alt="GitHub Stars"
           />
         </div>
       </nav>
-      <button v-if="!isMenuOpen" @click="isMenuOpen=true" class="md:hidden text-xl m-2">
-        <i class="iconfont icon-caidan" style="font-size: 20px"/>
-      </button>
-      <button v-if="isMenuOpen" @click="isMenuOpen=false" class="md:hidden text-xl m-2">
-        <i class="iconfont icon-guanbi" style="font-size: 20px"/>
-      </button>
+      <div class="md:hidden flex items-center">
+        <color-mode-switch/>
+        <button @click="isMenuOpen=!isMenuOpen" class="w-[20px] text-xl m-2">
+          <i v-if="!isMenuOpen" class="iconfont icon-caidan" style="font-size: 20px"/>
+          <i v-else class="iconfont icon-guanbi" style="font-size: 20px"/>
+        </button>
+      </div>
     </div>
   </header>
   <div v-if="isMenuOpen" class="floating-menu">
@@ -38,8 +43,9 @@
       <div class="operation__item" @click="showToast('敬请期待~')">服务</div>
       <div class="operation__item" @click="showToast('敬请期待~')">赞助</div>
     </div>
-    <div class="mt-[20px] cursor-pointer" @click="openUrl('https://github.com/DWHengr/linyu-client')">
+    <div class="mt-[20px] cursor-pointer flex">
       <img
+          @click="openUrl('https://github.com/DWHengr/linyu-client')"
           src="https://img.shields.io/github/stars/DWHengr/linyu-client?style=social"
           alt="GitHub Stars"
       />
@@ -76,12 +82,13 @@ const handlerToLink = (path) => {
 
 <style scoped>
 .header {
-  background-color: rgba(249, 251, 255, 0.8);
-  backdrop-filter: blur(15px);
+  background-color: rgba(var(--bg-color), 0.8);
+  backdrop-filter: blur(20px);
   position: sticky;
   top: 0;
   z-index: 50;
-  background-image: linear-gradient(to right, rgba(var(--primary-color), 0.2), rgba(var(--primary-color), 0.9), rgba(var(--primary-color), 0.2));
+  background-image: linear-gradient(to right, rgba(var(--primary-color), 0.2),
+  rgba(var(--primary-color), 0.9), rgba(var(--primary-color), 0.2));
   background-position: bottom;
   background-repeat: no-repeat;
   background-size: 100% 2px;
@@ -93,7 +100,7 @@ const handlerToLink = (path) => {
     justify-items: center;
     align-items: center;
     padding: 0 10px;
-    background-color: #FFF;
+    background-color: rgb(var(--bg-color));
     border-radius: 10px;
     border: #EDF2F9 2px solid;
     gap: 5px;
@@ -105,7 +112,7 @@ const handlerToLink = (path) => {
       cursor: pointer;
 
       &:hover {
-        background-color: #f2f6ff;
+        background-color: var(--button-hover-color);
         border-radius: 5px;
       }
     }
@@ -114,7 +121,7 @@ const handlerToLink = (path) => {
   .link-tag {
     height: 40px;
     padding: 0 10px;
-    background-color: #FFF;
+    background-color: rgb(var(--bg-color));
     border: #EDF2F9 2px solid;
     border-radius: 10px;
     display: flex;
@@ -133,8 +140,8 @@ const handlerToLink = (path) => {
   height: 100%;
   left: 0;
   right: 0;
-  background-color: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(15px);
+  background-color: rgba(var(--bg-color), 0.8);
+  backdrop-filter: blur(20px);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   padding: 20px 20px;
   display: flex;
@@ -151,7 +158,7 @@ const handlerToLink = (path) => {
       cursor: pointer;
 
       &:hover {
-        background-color: #f2f6ff;
+        background-color: var(--button-hover-color);
         border-radius: 5px;
       }
     }

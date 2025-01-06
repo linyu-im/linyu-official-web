@@ -62,7 +62,7 @@
                 </div>
                 <div v-for="tech in version.tech" class="flex items-center mt-[15px]">
                   <img :src="tech.icon" class="w-[26px] h-[26px] mr-[5px]" alt="" draggable="false"/>
-                  <div class="text-[#4B5963]"> {{ tech.content }}</div>
+                  <div class="text-[rgba(var(--text-color),0.7)]"> {{ tech.content }}</div>
                 </div>
                 <border-gradient-button @click="openUrl(version.link)" class="mt-[30px] w-full">
                   Github
@@ -178,12 +178,13 @@ const versionCardData = [
       .card-area__item {
         min-height: 120px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        background-color: rgba(255, 255, 255, 0.8);
+        background: linear-gradient(to left, rgba(244, 248, 251, 0.1), rgba(245, 247, 250, 0.1));
         border-radius: 5px;
         display: flex;
         flex-direction: column;
         padding: 10px 20px;
         cursor: pointer;
+        border: #D6D6D6 1px solid;
 
         &:hover {
           box-shadow: 0 0 20px rgba(var(--primary-color), 0.6);
@@ -198,7 +199,7 @@ const versionCardData = [
 
         .card-area__item__content {
           font-size: 13px;
-          color: #4B5963;
+          color: rgba(var(--text-color), 0.7);
         }
       }
     }
@@ -216,7 +217,7 @@ const versionCardData = [
       }
 
       .content__version__card {
-        background: linear-gradient(to left, #F4F8FB, #F5F7FA);
+        background: linear-gradient(to left, rgba(244, 248, 251, 0.1), rgba(245, 247, 250, 0.1));
         border-radius: 10px;
         border: #D6D6D6 1px solid;
         position: relative;

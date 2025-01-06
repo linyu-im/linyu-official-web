@@ -1,7 +1,7 @@
 <template>
   <!-- 小窗口下，菜单列表 -->
   <div class="sm-menu-operation flex lg:hidden">
-    <div class="text-[rgba(60,60,60,0.7)] text-[14px] cursor-pointer" @click="isSmMenuShow=true">
+    <div class="text-[rgba(var(--text-color),0.7)] text-[14px] cursor-pointer" @click="isSmMenuShow=true">
       <i class="iconfont icon-liebiao" style="font-size: 14px"/>
       菜单
     </div>
@@ -17,14 +17,14 @@
         lg:border-b-0 lg:border-r border-gray-200 overflow-y-auto hidden lg:flex"
         :class="{'sm-menu-list':isSmMenuShow}"
     >
-      <div class="p-4 space-y-1 absolute right-0">
+      <div class="p-4 space-y-1 absolute right-0" :class="{'left-0':isSmMenuShow}">
         <ul class="select-none">
           <li v-for="folder in menu" :key="folder.name">
             <span class="font-bold">{{ folder.displayName }}</span>
             <ul class="ml-[10px] mt-[5px]">
               <li
                   v-for="file in folder.files" :key="file._path"
-                  class="mb-[5px] text-[rgba(60,60,60,0.7)]"
+                  class="mb-[5px] text-[rgba(var(--text-color),0.7)]"
                   :class="{ 'list-active': file._path === path }"
               >
                 <NuxtLink :to="file._path">{{ file.title }}</NuxtLink>
@@ -106,8 +106,8 @@ onUnmounted(() => {
   height: 40px;
   position: fixed;
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(15px);
+  background-color: rgba(var(--bg-color), 0.8);
+  backdrop-filter: blur(20px);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   z-index: 99;
   align-items: center;
@@ -120,7 +120,7 @@ onUnmounted(() => {
   top: 0;
   height: 100%;
   width: 40%;
-  background-color: #FFFFFF;
+  background-color: rgba(var(--bg-color));
   z-index: 100;
   display: flex;
 }
@@ -136,7 +136,7 @@ onUnmounted(() => {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 10;
 }
 </style>

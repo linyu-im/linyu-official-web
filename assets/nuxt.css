@@ -1,11 +1,12 @@
 @import './iconfont.css';
 @import './prose.scss';
+@import 'theme.scss';
 
-:root {
-    --header-height: 4rem;
-    --primary-color: 76, 155, 255;
-    --minor-color: 0, 96, 217;
-}
+/*:root {*/
+/*    --header-height: 4rem;*/
+/*    --primary-color: 76, 155, 255;*/
+/*    --minor-color: 0, 96, 217;*/
+/*}*/
 
 ::-webkit-scrollbar {
     width: 8px;

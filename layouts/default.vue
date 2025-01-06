@@ -16,8 +16,8 @@ import Bottom from "~/layouts/bottom.vue";
   background: linear-gradient(to bottom,
       rgba(var(--primary-color), 0.1) 5%,
       rgba(var(--primary-color), 0.05) 10%,
-      white 20%,
-      white 80%,
+      rgba(255, 255, 255, 0) 20%,
+      rgba(255, 255, 255, 0) 80%,
       rgba(var(--primary-color), 0.05) 90%,
       rgba(var(--primary-color), 0.1) 95%
   );

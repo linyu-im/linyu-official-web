@@ -5,8 +5,6 @@
 </template>
 
 <script setup>
-import {onMounted, onUnmounted} from 'vue'
-
 const resetTypingAnimation = () => {
   const typingText = document.querySelector('.typing-text')
   if (typingText) {
@@ -42,7 +40,7 @@ onUnmounted(() => {
   padding: 8px;
   display: inline-block;
   overflow: hidden;
-  border-right: 4px solid #000;
+  border-right: 4px solid rgb(var(--text-color));
   white-space: nowrap;
   margin: 0;
   animation: typing 3s steps(40, end),
@@ -64,7 +62,7 @@ onUnmounted(() => {
     border-color: transparent
   }
   50% {
-    border-color: #000
+    border-color: rgb(var(--text-color))
   }
 }
 </style>
