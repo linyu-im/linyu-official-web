@@ -19,7 +19,6 @@
             ，涵盖桌面端和移动端等多种平台。
           </div>
           <div class="content__title__h2 lg:text-[20px] text-[16px]">
-
             同时，林语迷你版（Linyu Mini）是一款支持多人在线的
             <gradient-text direction="left">轻量级聊天室</gradient-text>
             系统。
@@ -71,6 +70,31 @@
               <div class="card__content__img">
                 <img :src="version.img" alt="" draggable="false">
               </div>
+            </div>
+          </div>
+        </div>
+        <div class="content__contributor">
+          <div class="content__contributor__h1 lg:text-5xl text-3xl mb-[50px]">
+            加入我们，成为
+            <gradient-text direction="left">开源</gradient-text>
+            贡献者
+          </div>
+          <div class="contributor__content">
+            <div
+                class="gradient-sphere top-[-100px] left-1 lg:left-[-100px]"
+                :style="{background: `linear-gradient(to right, rgba(25,255,114,0.4), rgba(25,255,114,0.3))`}"
+            />
+            <gradient-text class="mb-[15px]" direction="left">开源贡献者</gradient-text>
+            <avatar-group class="mb-[20px]"/>
+            <div class="indent-[2em]">
+              我们致力于打造一个
+              <gradient-text>多元化、充满活力</gradient-text>
+              的开源生态及社区 ，使用的技术涵盖了如
+              <gradient-text>
+                Vue、React、Flutter、Spring Boot，Tauri，Nuxt，
+              </gradient-text>
+              等多个领域。无论你是刚开始探索开源，还是已经拥有丰富的开发经验，这里都有适合你的项目和机会！
+              <gradient-text>欢迎您加入我们！</gradient-text>
             </div>
           </div>
         </div>
@@ -267,6 +291,32 @@ const versionCardData = [
             }
           }
         }
+      }
+    }
+
+    .content__contributor {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .content__contributor__h1 {
+        font-weight: 600;
+        margin: 60px 0;
+      }
+
+      .contributor__content {
+        background: linear-gradient(to left, rgba(244, 248, 251, 0.1), rgba(245, 247, 250, 0.1));
+        border-radius: 10px;
+        border: #D6D6D6 1px solid;
+        position: relative;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        width: 70%;
+        margin-bottom: 100px;
+        align-items: center;
+        justify-content: center;
       }
     }
 
